@@ -231,3 +231,22 @@ ansible-navigator:
   playbook-artifact:
     enable: false
 ```
+
+
+### Syntax check using Ansible Navigator
+```bash
+ansible-navigator run -m stdout --syntax-check install_file.yml
+```
+
+### Ansible helps 
+```bash
+ansible-navigator doc -l
+```
+```bash
+ansible-navigator doc yum
+```
+
+### Running a playbook using Ansible Navigator
+```bash
+ansible-navigator run playbook.yml -m stdout -i inventory
+```

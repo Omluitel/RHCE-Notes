@@ -1,0 +1,32 @@
+---
+- name: Restart HTTPD Service and Send Notification
+  hosts: all
+  vars:
+    - gmail_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34616162386339623664623532336636396566323138333061323364633735646565373663393061
+          3161303433653433386232633730656563306236393834320a613366386637316364613033393334
+          37376236373463383436623535366436663738376235333233376637353636303639623764323964
+          3636333334393530620a363739336638383461336637633663316538366135313238363532396562
+          65383738323862326632303239623063383138393239663237343965656264633632
+
+  tasks:
+    - name: Restart HTTPD Service
+      service:
+        name: httpd
+        state: restarted
+
+    - name: Send Notification
+      mail:
+        host: smtp.gmail.com
+        subtype: plain
+        port: 587
+        password: "{{ gmail_pass }}"
+        to: omprakashluitelssm@gmail.com
+        from: u9579068@gmail.com
+        username: u9579068@gmail.com
+        subject: HTTPD Service Restarted
+        body: "The HTTPD service on host {{ ansible_hostname }} has been successfully restarted."
+
+
+
